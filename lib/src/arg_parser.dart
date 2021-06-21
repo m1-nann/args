@@ -190,20 +190,26 @@ class ArgParser {
   ///
   /// * There is already an option with name [name].
   /// * There is already an option using abbreviation [abbr].
-  void addOption(String name,
-      {String? abbr,
-      String? help,
-      String? valueHelp,
-      Iterable<String>? allowed,
-      Map<String, String>? allowedHelp,
-      String? defaultsTo,
-      void Function(String?)? callback,
-      bool mandatory = false,
-      bool hide = false,
-      List<String> aliases = const []}) {
+  void addOption(
+    String name, {
+    String? abbr,
+    String? help,
+    String? valueHelp,
+    Iterable<String>? allowed,
+    Map<String, String>? allowedHelp,
+    String? defaultsTo,
+    void Function(String?)? callback,
+    bool mandatory = false,
+    bool hide = false,
+    List<String> aliases = const [],
+    bool toUppercase = false,
+  }) {
     _addOption(name, abbr, help, valueHelp, allowed, allowedHelp, defaultsTo,
         callback, OptionType.single,
-        mandatory: mandatory, hide: hide, aliases: aliases);
+        mandatory: mandatory,
+        hide: hide,
+        aliases: aliases,
+        toUppercase: toUppercase);
   }
 
   /// Defines an option that takes multiple values.
@@ -273,20 +279,22 @@ class ArgParser {
   }
 
   void _addOption(
-      String name,
-      String? abbr,
-      String? help,
-      String? valueHelp,
-      Iterable<String>? allowed,
-      Map<String, String>? allowedHelp,
-      defaultsTo,
-      Function? callback,
-      OptionType type,
-      {bool negatable = false,
-      bool? splitCommas,
-      bool mandatory = false,
-      bool hide = false,
-      List<String> aliases = const []}) {
+    String name,
+    String? abbr,
+    String? help,
+    String? valueHelp,
+    Iterable<String>? allowed,
+    Map<String, String>? allowedHelp,
+    defaultsTo,
+    Function? callback,
+    OptionType type, {
+    bool negatable = false,
+    bool? splitCommas,
+    bool mandatory = false,
+    bool hide = false,
+    List<String> aliases = const [],
+    bool toUppercase = false,
+  }) {
     var allNames = [name, ...aliases];
     if (allNames.any((name) => findByNameOrAlias(name) != null)) {
       throw ArgumentError('Duplicate option or alias "$name".');
@@ -313,7 +321,8 @@ class ArgParser {
         splitCommas: splitCommas,
         mandatory: mandatory,
         hide: hide,
-        aliases: aliases);
+        aliases: aliases,
+        toUppercase: toUppercase);
     _options[name] = option;
     _optionsAndSeparators.add(option);
     for (var alias in aliases) {

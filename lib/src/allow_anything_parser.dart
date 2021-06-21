@@ -13,12 +13,16 @@ import 'parser.dart';
 class AllowAnythingParser implements ArgParser {
   @override
   Map<String, Option> get options => const {};
+
   @override
   Map<String, ArgParser> get commands => const {};
+
   @override
   bool get allowTrailingOptions => false;
+
   @override
   bool get allowsAnything => true;
+
   @override
   int? get usageLineLength => null;
 
@@ -54,7 +58,8 @@ class AllowAnythingParser implements ArgParser {
       bool? splitCommas,
       bool mandatory = false,
       bool hide = false,
-      List<String> aliases = const []}) {
+      List<String> aliases = const [],
+      bool toUppercase = false}) {
     throw UnsupportedError(
         "ArgParser.allowAnything().addOption() isn't supported.");
   }

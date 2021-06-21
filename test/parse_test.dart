@@ -531,6 +531,13 @@ void main() {
           expect(results['test'], equals('test'));
         });
       });
+
+      test('toUppercase', () {
+        final parser = ArgParser();
+        parser.addOption('values', toUppercase: true);
+        final args = parser.parse(['--values=foo,Bar,CAR']);
+        expect(args['values'], equals('FOO,BAR,CAR'));
+      });
     });
 
     group('remaining args', () {
